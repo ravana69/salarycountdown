@@ -6,27 +6,36 @@
 <title>Salary Countdown</title>
 <style>
   body {
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+    color: #fff;
     font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .container {
     text-align: center;
-    padding: 50px;
+  }
+  .header {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .countdown {
+    font-size: 32px;
   }
 </style>
 </head>
 <body>
-<h1>Salary Countdown</h1>
-<p>Your salary will be credited in:</p>
-<p id="countdown"></p>
+<div class="container">
+  <h1 class="header">Salary Countdown</h1>
+  <p>Your salary will be credited in:</p>
+  <p class="countdown" id="countdown"></p>
+</div>
 
 <script>
-// Function to calculate time left until the last day of the month
-function timeUntilLastDayOfMonth() {
-  const now = new Date();
-  const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-  const timeLeft = lastDayOfMonth - now;
-  return timeLeft;
-}
-
-// Update the countdown element
 function updateCountdown() {
   const countdownElement = document.getElementById('countdown');
   const timeLeft = timeUntilLastDayOfMonth();
@@ -36,15 +45,15 @@ function updateCountdown() {
   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-  if (days === 1) {
-    countdownElement.textContent = '1 day';
-  } else {
-    countdownElement.textContent = days + ' days';
-  }
+  const countdownText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+  countdownElement.textContent = countdownText;
+}
 
-  countdownElement.textContent += ', ' + hours + ' hours';
-  countdownElement.textContent += ', ' + minutes + ' minutes';
-  countdownElement.textContent += ', ' + seconds + ' seconds';
+function timeUntilLastDayOfMonth() {
+  const now = new Date();
+  const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const timeLeft = lastDayOfMonth - now;
+  return timeLeft;
 }
 
 // Initial call to update the countdown
